@@ -1,0 +1,14 @@
+@use 'sass:map';
+@use 'tokens';
+
+@mixin text($scale: 'md', $weight: tokens.$font-weight-regular) {
+  $step: map.get(tokens.$type-scale, $scale);
+
+  @if not $step {
+    @error 'Unknown type scale "#{$scale}". Available: #{map.keys(tokens.$type-scale)}';
+  }
+
+  font-size: map.get($step, 'size');
+  line-height: map.get($step, 'line-height');
+  font-weight: $weight;
+}

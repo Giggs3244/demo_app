@@ -1,2 +1,54 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+@use 'sass:color';
+@use 'sass:math';
+@use 'tokens';
+
+@function channel($value, $name) {
+  @return math.round(color.channel($value, $name, $space: rgb));
+}
+
+@function rgb-channels($value) {
+  @return '#{channel($value, 'red')}, #{channel($value, 'green')}, #{channel($value, 'blue')}';
+}
+
+@function blend($overlay, $base, $weight) {
+  $mixed: color.mix($overlay, $base, $weight);
+
+  @return rgb(channel($mixed, 'red'), channel($mixed, 'green'), channel($mixed, 'blue'));
+}
+
+@mixin ionic-color($name, $base, $contrast: tokens.$color-surface) {
+  --ion-color-#{$name}: #{$base};
+  --ion-color-#{$name}-rgb: #{rgb-channels($base)};
+  --ion-color-#{$name}-contrast: #{$contrast};
+  --ion-color-#{$name}-contrast-rgb: #{rgb-channels($contrast)};
+  --ion-color-#{$name}-shade: #{blend(#000000, $base, 12%)};
+  --ion-color-#{$name}-tint: #{blend(#ffffff, $base, 10%)};
+}
+
+:root {
+  @each $name, $value in tokens.$colors {
+    --app-color-#{$name}: #{$value};
+  }
+
+  @include ionic-color('primary', tokens.$color-primary);
+  @include ionic-color('secondary', tokens.$color-secondary);
+  @include ionic-color('danger', tokens.$color-danger);
+
+  --ion-font-family: #{tokens.$font-family-base};
+
+  --ion-background-color: #{tokens.$color-background};
+  --ion-background-color-rgb: #{rgb-channels(tokens.$color-background)};
+  --ion-text-color: #{tokens.$color-text};
+  --ion-text-color-rgb: #{rgb-channels(tokens.$color-text)};
+  --ion-border-color: #{tokens.$color-border};
+  --ion-placeholder-color: #{tokens.$color-placeholder};
+  --ion-backdrop-color: #{tokens.$color-backdrop};
+
+  --ion-toolbar-background: #{tokens.$color-surface};
+  --ion-toolbar-color: #{tokens.$color-text};
+  --ion-tab-bar-background: #{tokens.$color-surface};
+  --ion-tab-bar-color: #{tokens.$color-text};
+  --ion-tab-bar-color-selected: #{tokens.$color-primary};
+  --ion-item-background: #{tokens.$color-surface};
+  --ion-card-background: #{tokens.$color-surface};
+}

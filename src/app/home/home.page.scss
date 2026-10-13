@@ -1,27 +1,85 @@
-#container {
-  text-align: center;
+@use 'sass:map';
+@use 'tokens' as *;
+@use 'typography' as type;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.preview {
+  padding: $space-md $screen-margin;
+
+  &__title {
+    @include type.text('xl');
+    margin: 0 0 $space-md;
+  }
+
+  &__heading {
+    @include type.text('md', $font-weight-bold);
+    margin: $space-md 0 $space-sm;
+    color: $color-primary;
+  }
+
+  &__swatches,
+  &__type {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__ionic {
+    display: flex;
+    gap: $space-xs;
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.swatch {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  margin-bottom: $space-xs;
+
+  &__chip {
+    width: $control-height;
+    height: $space-md;
+    border: $border-width solid $color-border;
+    border-radius: $radius-sm;
+    background-clip: padding-box;
+  }
+
+  &__name {
+    flex: 1;
+  }
+
+  &__value {
+    @include type.text('xs');
+    color: $color-text-muted;
+  }
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
+.type-sample {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: $space-xs;
 
-  color: #8c8c8c;
+  @each $scale in map.keys($type-scale) {
+    &__text--#{$scale} {
+      @include type.text($scale);
+    }
+  }
 
-  margin: 0;
+  &__spec {
+    @include type.text('xs');
+    color: $color-text-muted;
+  }
 }
 
-#container a {
-  text-decoration: none;
+.ionic-chip {
+  @include type.text('sm', $font-weight-bold);
+  padding: $space-xs $space-sm;
+  border-radius: $radius-md;
+
+  @each $name in ('primary', 'secondary', 'danger') {
+    &--#{$name} {
+      background: var(--ion-color-#{$name});
+      color: var(--ion-color-#{$name}-contrast);
+    }
+  }
 }

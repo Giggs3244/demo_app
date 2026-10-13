@@ -1,20 +1,33 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <main class="preview">
+    <h1 class="preview__title">Tema</h1>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <h2 class="preview__heading">COLORES</h2>
+    <ul class="preview__swatches">
+      @for (color of colors; track color.name) {
+        <li class="swatch" [attr.data-token]="color.name">
+          <span class="swatch__chip" [style.background]="'var(--app-color-' + color.name + ')'"></span>
+          <span class="swatch__name">{{ color.name }}</span>
+          <span class="swatch__value">{{ color.value }}</span>
+        </li>
+      }
+    </ul>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <h2 class="preview__heading">TIPOGRAFÍA</h2>
+    <ul class="preview__type">
+      @for (sample of typeScale; track sample.scale) {
+        <li class="type-sample">
+          <span class="type-sample__text type-sample__text--{{ sample.scale }}">Banco BHD León</span>
+          <span class="type-sample__spec">{{ sample.scale }} · {{ sample.spec }}</span>
+        </li>
+      }
+    </ul>
+
+    <h2 class="preview__heading">COLORES DE IONIC</h2>
+    <div class="preview__ionic">
+      <span class="ionic-chip ionic-chip--primary">primary</span>
+      <span class="ionic-chip ionic-chip--secondary">secondary</span>
+      <span class="ionic-chip ionic-chip--danger">danger</span>
+    </div>
+  </main>
 </ion-content>

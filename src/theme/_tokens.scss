@@ -1,0 +1,79 @@
+$color-primary: #49b742;
+$color-secondary: #00477a;
+$color-danger: #c92340;
+$color-text: #666666;
+$color-text-muted: #999999;
+$color-placeholder: #cccccc;
+$color-border: rgba(204, 204, 204, 0.6);
+$color-background: #f5f5f5;
+$color-surface: #ffffff;
+$color-overlay: rgba(0, 0, 0, 0.16);
+$color-backdrop: rgba(0, 0, 0, 0.4);
+$color-toggle-off: rgba(255, 255, 255, 0.6);
+
+$colors: (
+  'primary': $color-primary,
+  'secondary': $color-secondary,
+  'danger': $color-danger,
+  'text': $color-text,
+  'text-muted': $color-text-muted,
+  'placeholder': $color-placeholder,
+  'border': $color-border,
+  'background': $color-background,
+  'surface': $color-surface,
+  'overlay': $color-overlay,
+  'backdrop': $color-backdrop,
+  'toggle-off': $color-toggle-off,
+);
+
+$font-family-base: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+$font-weight-regular: 400;
+$font-weight-bold: 700;
+
+$type-scale: (
+  'xs': (
+    'size': 10px,
+    'line-height': 11px,
+  ),
+  'sm': (
+    'size': 12px,
+    'line-height': 14px,
+  ),
+  'md': (
+    'size': 14px,
+    'line-height': 16px,
+  ),
+  'lg': (
+    'size': 16px,
+    'line-height': 19px,
+  ),
+  'xl': (
+    'size': 24px,
+    'line-height': 28px,
+  ),
+);
+
+$space-xxs: 4px;
+$space-xs: 8px;
+$space-sm: 16px;
+$space-md: 24px;
+$space-lg: 32px;
+
+$screen-margin: 24px;
+$content-width: 326px;
+
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-pill: 12px;
+
+$border-width: 1px;
+$accent-bar-height: 4px;
+
+$control-height: 44px;
+$header-height: 66px;
+$tab-bar-height: 80px;
+$side-menu-width: 269px;
+
+$shadow-knob: 1px 1px 1.5px rgba(0, 0, 0, 0.16);
+
+$transition-duration: 0.3s;
