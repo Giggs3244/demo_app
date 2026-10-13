@@ -1,0 +1,22 @@
+@use 'tokens' as *;
+@use 'typography' as type;
+
+:host {
+  display: block;
+}
+
+ion-button {
+  @include type.text('md', $font-weight-bold);
+
+  --border-radius: #{$radius-md};
+  --border-width: #{$border-width};
+  --box-shadow: none;
+  --padding-top: 0;
+  --padding-bottom: 0;
+
+  height: $control-height;
+  min-height: $control-height;
+  margin: 0;
+  letter-spacing: 0;
+  text-transform: none;
+}

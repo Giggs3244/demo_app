@@ -1,0 +1,49 @@
+@use 'tokens' as *;
+@use '../product-card/product-card-layout' as layout;
+
+$alias-width: 169px;
+$alias-height: 16px;
+$balance-width: 154px;
+$caption-width: 84px;
+$caption-height: 11px;
+
+:host {
+  display: block;
+}
+
+ion-skeleton-text {
+  --border-radius: #{$radius-sm};
+
+  margin: 0;
+  line-height: 1;
+}
+
+.skeleton {
+  @include layout.card-surface($color-placeholder);
+
+  &__header {
+    @include layout.card-header;
+  }
+
+  &__icon {
+    flex: none;
+    width: layout.$card-icon-size;
+    height: layout.$card-icon-size;
+  }
+
+  &__alias {
+    width: $alias-width;
+    height: $alias-height;
+  }
+
+  &__balance {
+    width: $balance-width;
+    height: layout.$card-balance-height;
+  }
+
+  &__caption {
+    width: $caption-width;
+    height: $caption-height;
+    margin-top: layout.$card-caption-offset;
+  }
+}

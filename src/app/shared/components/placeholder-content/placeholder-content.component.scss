@@ -1,0 +1,23 @@
+@use 'tokens' as *;
+@use 'typography' as type;
+
+$description-width: 294px;
+$description-offset: 30px;
+
+:host {
+  display: block;
+  color: $color-placeholder;
+  text-align: center;
+}
+
+.placeholder__title {
+  @include type.text('xl');
+  margin: 0;
+  white-space: pre-line;
+}
+
+.placeholder__description {
+  @include type.text('md');
+  width: $description-width;
+  margin: $description-offset auto 0;
+}

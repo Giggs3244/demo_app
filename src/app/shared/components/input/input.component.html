@@ -1,0 +1,19 @@
+<div class="field" [class.field--disabled]="disabled()">
+  @if (icon(); as iconSrc) {
+    <span class="field__icon">
+      <img [src]="iconSrc" alt="" />
+    </span>
+  }
+  <ion-input
+    class="field__control"
+    [type]="type()"
+    [inputmode]="inputMode()"
+    [autocomplete]="autocomplete()"
+    [placeholder]="placeholder()"
+    [attr.aria-label]="placeholder()"
+    [value]="value()"
+    [disabled]="disabled()"
+    (ionInput)="onInput($event)"
+    (ionBlur)="touch.emit()"
+  />
+</div>

@@ -1,0 +1,32 @@
+@use 'tokens' as *;
+
+$card-accent-width: 6px;
+$card-icon-size: 40px;
+$card-balance-height: 28px;
+$card-caption-offset: 1px;
+
+@mixin card-surface($accent) {
+  position: relative;
+  overflow: hidden;
+  padding: $space-sm;
+  border-radius: $radius-sm;
+  background: $color-surface;
+  box-shadow: inset 0 0 0 $border-width $color-border;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    width: $card-accent-width;
+    background: $accent;
+  }
+}
+
+@mixin card-header {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  height: $card-icon-size;
+  margin-bottom: $space-sm;
+}

@@ -1,0 +1,43 @@
+@use 'tokens' as *;
+
+$box-width: 103px;
+$box-height: 109px;
+$overlay-z-index: 1000;
+$spinner-steps: 8;
+$spinner-duration: 1s;
+
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: $overlay-z-index;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $color-backdrop;
+}
+
+.overlay__box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $box-width;
+  height: $box-height;
+  border-radius: $radius-sm;
+  background: $color-surface;
+}
+
+.overlay__spinner {
+  animation: spin $spinner-duration steps($spinner-steps) infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay__spinner {
+    animation: none;
+  }
+}

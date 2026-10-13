@@ -1,0 +1,16 @@
+<article class="card card--{{ presentation().accent }}">
+  <header class="card__header">
+    <span class="card__icon">
+      <img [src]="presentation().icon" alt="" />
+    </span>
+    <h3 class="card__alias">{{ product().displayName }}</h3>
+  </header>
+
+  @for (balance of balances(); track balance.currency) {
+    <p class="card__balance">
+      {{ balance.currency }}&ngsp;<span class="card__amount">{{ balance.whole }}</span>{{ balance.decimals }}
+    </p>
+  }
+
+  <p class="card__caption">Balance disponible</p>
+</article>

@@ -1,33 +1,41 @@
+<app-header title="Componentes" leading="menu" />
+<app-header title="Detalle de producto" leading="back" />
+
 <ion-content>
-  <main class="preview">
-    <h1 class="preview__title">Tema</h1>
+  <main class="showcase">
+    <app-input
+      placeholder="Documento de identidad"
+      icon="assets/icons/user-input-gray.svg"
+      inputMode="numeric"
+      autocomplete="username"
+      [formField]="demoForm.userId"
+    />
+    <app-input
+      placeholder="Contraseña"
+      icon="assets/icons/key-input-gray.svg"
+      type="password"
+      autocomplete="current-password"
+      [formField]="demoForm.password"
+    />
+    <app-toggle [formField]="demoForm.rememberUser">Recuerda mi usuario</app-toggle>
+    <app-button (click)="showLoading()">INICIAR SESIÓN</app-button>
+    <app-button variant="outline">CERRAR SESIÓN</app-button>
 
-    <h2 class="preview__heading">COLORES</h2>
-    <ul class="preview__swatches">
-      @for (color of colors; track color.name) {
-        <li class="swatch" [attr.data-token]="color.name">
-          <span class="swatch__chip" [style.background]="'var(--app-color-' + color.name + ')'"></span>
-          <span class="swatch__name">{{ color.name }}</span>
-          <span class="swatch__value">{{ color.value }}</span>
-        </li>
-      }
-    </ul>
+    <output class="showcase__state">{{ model().userId }} · {{ model().password.length }} · {{ model().rememberUser }}</output>
 
-    <h2 class="preview__heading">TIPOGRAFÍA</h2>
-    <ul class="preview__type">
-      @for (sample of typeScale; track sample.scale) {
-        <li class="type-sample">
-          <span class="type-sample__text type-sample__text--{{ sample.scale }}">Banco BHD León</span>
-          <span class="type-sample__spec">{{ sample.scale }} · {{ sample.spec }}</span>
-        </li>
-      }
-    </ul>
+    @for (product of products; track product.number) {
+      <app-product-card [product]="product" />
+    }
+    <app-product-card-skeleton />
 
-    <h2 class="preview__heading">COLORES DE IONIC</h2>
-    <div class="preview__ionic">
-      <span class="ionic-chip ionic-chip--primary">primary</span>
-      <span class="ionic-chip ionic-chip--secondary">secondary</span>
-      <span class="ionic-chip ionic-chip--danger">danger</span>
-    </div>
+    <app-placeholder-content
+      title="Pantalla
+de transacciones"
+      description="Esta pantalla es únicamente para validar como se construye la navegación de la aplicación, por lo tanto, este puede ser el único contenido"
+    />
   </main>
 </ion-content>
+
+@if (loading()) {
+  <app-loading-overlay />
+}

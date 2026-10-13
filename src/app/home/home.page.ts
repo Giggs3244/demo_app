@@ -1,44 +1,48 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { FormField, form } from '@angular/forms/signals';
 import { IonContent } from '@ionic/angular';
 
-interface ColorSwatch {
-  readonly name: string;
-  readonly value: string;
-}
-
-interface TypeSample {
-  readonly scale: string;
-  readonly spec: string;
-}
+import { ProductFactory } from '../core/mappers/product.factory';
+import { MOCK_ACCOUNTS, MOCK_CREDIT_CARDS } from '../core/mocks/mock-data';
+import { Product } from '../core/models/product.model';
+import { ButtonComponent } from '../shared/components/button/button.component';
+import { HeaderComponent } from '../shared/components/header/header.component';
+import { InputComponent } from '../shared/components/input/input.component';
+import { LoadingOverlayComponent } from '../shared/components/loading-overlay/loading-overlay.component';
+import { PlaceholderContentComponent } from '../shared/components/placeholder-content/placeholder-content.component';
+import { ProductCardSkeletonComponent } from '../shared/components/product-card-skeleton/product-card-skeleton.component';
+import { ProductCardComponent } from '../shared/components/product-card/product-card.component';
+import { ToggleComponent } from '../shared/components/toggle/toggle.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonContent],
+  imports: [
+    IonContent,
+    FormField,
+    ButtonComponent,
+    HeaderComponent,
+    InputComponent,
+    LoadingOverlayComponent,
+    PlaceholderContentComponent,
+    ProductCardComponent,
+    ProductCardSkeletonComponent,
+    ToggleComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage {
-  protected readonly colors: readonly ColorSwatch[] = [
-    { name: 'primary', value: '#49B742' },
-    { name: 'secondary', value: '#00477A' },
-    { name: 'danger', value: '#C92340' },
-    { name: 'text', value: '#666666' },
-    { name: 'text-muted', value: '#999999' },
-    { name: 'placeholder', value: '#CCCCCC' },
-    { name: 'border', value: 'rgba(204, 204, 204, 0.6)' },
-    { name: 'background', value: '#F5F5F5' },
-    { name: 'surface', value: '#FFFFFF' },
-    { name: 'overlay', value: 'rgba(0, 0, 0, 0.16)' },
-    { name: 'backdrop', value: 'rgba(0, 0, 0, 0.4)' },
-    { name: 'toggle-off', value: 'rgba(255, 255, 255, 0.6)' },
-  ];
+  protected readonly model = signal({ userId: '', password: '', rememberUser: false });
+  protected readonly demoForm = form(this.model);
+  protected readonly loading = signal(false);
 
-  protected readonly typeScale: readonly TypeSample[] = [
-    { scale: 'xs', spec: '10 / 11' },
-    { scale: 'sm', spec: '12 / 14' },
-    { scale: 'md', spec: '14 / 16' },
-    { scale: 'lg', spec: '16 / 19' },
-    { scale: 'xl', spec: '24 / 28' },
-  ];
+  protected readonly products: readonly Product[] = [...MOCK_ACCOUNTS, ...MOCK_CREDIT_CARDS].map((dto) =>
+    ProductFactory.create(dto),
+  );
+
+  protected showLoading(): void {
+    this.loading.set(true);
+    setTimeout(() => this.loading.set(false), 2000);
+  }
 }

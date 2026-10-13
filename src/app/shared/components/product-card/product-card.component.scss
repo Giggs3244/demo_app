@@ -1,0 +1,52 @@
+@use 'sass:map';
+@use 'tokens' as *;
+@use 'typography' as type;
+@use 'product-card-layout' as layout;
+
+:host {
+  display: block;
+}
+
+.card {
+  @each $accent in ('primary', 'secondary') {
+    &--#{$accent} {
+      @include layout.card-surface(map.get($colors, $accent));
+    }
+  }
+
+  &__header {
+    @include layout.card-header;
+  }
+
+  &__icon {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: layout.$card-icon-size;
+    height: layout.$card-icon-size;
+  }
+
+  &__alias {
+    @include type.text('md');
+    margin: 0;
+  }
+
+  &__balance {
+    @include type.text('md');
+    height: layout.$card-balance-height;
+    margin: 0;
+    line-height: layout.$card-balance-height;
+    white-space: nowrap;
+  }
+
+  &__amount {
+    font-size: map.get(map.get($type-scale, 'xl'), 'size');
+  }
+
+  &__caption {
+    @include type.text('xs');
+    margin: layout.$card-caption-offset 0 0;
+    color: $color-text-muted;
+  }
+}

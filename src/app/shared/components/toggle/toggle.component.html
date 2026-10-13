@@ -1,0 +1,10 @@
+<ion-toggle
+  labelPlacement="end"
+  justify="start"
+  [checked]="checked()"
+  [disabled]="disabled()"
+  (ionChange)="onChange($event)"
+  (ionBlur)="touch.emit()"
+>
+  <ng-content />
+</ion-toggle>

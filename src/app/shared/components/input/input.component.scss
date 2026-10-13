@@ -1,0 +1,54 @@
+@use 'tokens' as *;
+@use 'typography' as type;
+
+$icon-box-width: 15px;
+
+:host {
+  display: block;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  height: $control-height;
+  padding-inline: $space-sm;
+  border-radius: $radius-md;
+  background: $color-surface;
+  box-shadow: inset 0 0 0 $border-width $color-border;
+
+  &--disabled {
+    opacity: 0.5;
+  }
+
+  &__icon {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: $icon-box-width;
+    margin-inline-end: $space-sm;
+
+    img {
+      flex: none;
+      max-width: none;
+    }
+  }
+
+  &__control {
+    @include type.text('md');
+
+    --background: transparent;
+    --color: #{$color-text};
+    --placeholder-color: #{$color-placeholder};
+    --placeholder-opacity: 1;
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --border-width: 0;
+    --highlight-height: 0;
+
+    flex: 1;
+    min-height: $control-height;
+  }
+}

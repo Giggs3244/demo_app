@@ -1,0 +1,44 @@
+@use 'tokens' as *;
+@use 'typography' as type;
+
+$track-width: 40px;
+$track-height: 24px;
+$handle-size: 22px;
+$handle-spacing: 1px;
+
+:host {
+  display: inline-block;
+}
+
+ion-toggle {
+  @include type.text('sm');
+
+  --track-background: #{$color-toggle-off};
+  --track-background-checked: #{$color-primary};
+  --handle-background: #{$color-surface};
+  --handle-background-checked: #{$color-surface};
+  --handle-width: #{$handle-size};
+  --handle-height: #{$handle-size};
+  --handle-max-height: #{$handle-size};
+  --handle-spacing: #{$handle-spacing};
+  --handle-border-radius: 50%;
+  --handle-box-shadow: #{$shadow-knob};
+  --border-radius: #{$radius-pill};
+
+  width: auto;
+  color: $color-text;
+
+  &::part(track) {
+    width: $track-width;
+    height: $track-height;
+    box-shadow: inset 0 0 0 $border-width $color-border;
+  }
+
+  &.toggle-checked::part(track) {
+    box-shadow: none;
+  }
+
+  &::part(label) {
+    margin-inline: $space-xs 0;
+  }
+}
