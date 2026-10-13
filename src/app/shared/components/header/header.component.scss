@@ -1,12 +1,7 @@
 @use 'tokens' as *;
 @use 'typography' as type;
 
-$touch-target: 48px;
 $content-offset-top: 3px;
-$hamburger-width: 25px;
-$hamburger-height: 19px;
-$hamburger-bar: 3px;
-$hamburger-gap: 5px;
 $back-icon-size: 19.163px;
 $back-button-offset: 12px;
 
@@ -40,22 +35,14 @@ ion-buttons {
   margin: 0;
 }
 
-.header__menu,
+app-menu-button {
+  margin-inline-start: $menu-button-offset;
+}
+
 .header__back {
   --padding-start: 0;
   --padding-end: 0;
   --color: #{$color-primary};
-
-  width: $touch-target;
-  height: $touch-target;
-  margin: 0;
-}
-
-.header__menu {
-  margin-inline-start: $screen-margin - ($touch-target - $hamburger-width) * 0.5;
-}
-
-.header__back {
   --icon-font-size: #{$back-icon-size};
   --icon-margin-start: 0;
   --icon-margin-end: 0;
@@ -63,20 +50,8 @@ ion-buttons {
   --icon-padding-end: 0;
   --min-width: #{$touch-target};
 
+  width: $touch-target;
+  height: $touch-target;
+  margin: 0;
   margin-inline-start: $back-button-offset;
-}
-
-.hamburger {
-  display: block;
-  color: $color-primary;
-  width: $hamburger-width;
-  height: $hamburger-height;
-  background: linear-gradient(
-    to bottom,
-    currentColor 0 $hamburger-bar,
-    transparent $hamburger-bar ($hamburger-bar + $hamburger-gap),
-    currentColor ($hamburger-bar + $hamburger-gap) ($hamburger-bar * 2 + $hamburger-gap),
-    transparent ($hamburger-bar * 2 + $hamburger-gap) ($hamburger-bar * 2 + $hamburger-gap * 2),
-    currentColor ($hamburger-bar * 2 + $hamburger-gap * 2) $hamburger-height
-  );
 }

@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { IonBackButton, IonButtons, IonHeader, IonMenuButton, IonTitle, IonToolbar } from '@ionic/angular';
+import { IonBackButton, IonButtons, IonHeader, IonTitle, IonToolbar } from '@ionic/angular';
+
+import { MenuButtonComponent } from '../menu-button/menu-button.component';
 
 export type HeaderLeading = 'menu' | 'back' | 'none';
 
@@ -7,7 +9,7 @@ export type HeaderLeading = 'menu' | 'back' | 'none';
   selector: 'app-header',
   templateUrl: 'header.component.html',
   styleUrl: 'header.component.scss',
-  imports: [IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonBackButton],
+  imports: [IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, MenuButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {

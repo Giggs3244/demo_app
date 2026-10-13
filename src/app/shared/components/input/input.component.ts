@@ -17,6 +17,7 @@ export class InputComponent implements FormValueControl<string> {
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly touch = output<void>();
 
+  readonly id = input<string>('app_input');
   readonly placeholder = input.required<string>();
   readonly type = input<InputType>('text');
   readonly inputMode = input<InputMode>('text');

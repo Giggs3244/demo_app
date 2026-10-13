@@ -1,0 +1,69 @@
+@use 'tokens' as *;
+@use 'typography' as type;
+
+$background-focus-x: 77.35%;
+$menu-offset-top: 8.5px;
+$logo-offset-top: 120px;
+$logo-offset-bottom: 77px;
+$remember-optical-offset: -1.5px;
+$toast-margin-start: 10px;
+$toast-margin-end: 9px;
+$toast-offset-top: 4px;
+$toast-height: 61px;
+
+ion-content {
+  --background: #{$color-surface} url('/assets/images/login-bg-768x1024.webp') #{$background-focus-x} center / cover
+    no-repeat;
+}
+
+.login__menu {
+  position: absolute;
+  inset-block-start: calc(#{$menu-offset-top} + var(--ion-safe-area-top, 0px));
+  inset-inline-start: $menu-button-offset;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  padding: calc(#{$logo-offset-top} + var(--ion-safe-area-top, 0px)) $screen-margin 0;
+
+  &__logo {
+    align-self: center;
+    margin-bottom: $logo-offset-bottom;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+    margin-inline-end: $content-inset-end;
+  }
+
+  &__remember {
+    position: relative;
+    inset-inline-start: $remember-optical-offset;
+    align-self: center;
+  }
+}
+
+.login__toast {
+  @include type.text('md');
+
+  --background: #{$color-danger};
+  --color: #{$color-surface};
+  --border-radius: #{$radius-sm};
+  --box-shadow: none;
+  --start: #{$toast-margin-start};
+  --end: #{$toast-margin-end};
+  --max-width: none;
+  --min-height: #{$toast-height};
+
+  &::part(wrapper) {
+    margin-top: $toast-offset-top;
+  }
+
+  &::part(message) {
+    @include type.text('md');
+    text-align: center;
+  }
+}

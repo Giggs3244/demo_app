@@ -1,0 +1,36 @@
+@use 'tokens' as *;
+
+$hamburger-width: 25px;
+$hamburger-height: 19px;
+$hamburger-bar: 3px;
+$hamburger-gap: 5px;
+
+:host {
+  display: block;
+  width: $touch-target;
+  height: $touch-target;
+}
+
+ion-menu-button {
+  --padding-start: 0;
+  --padding-end: 0;
+
+  width: $touch-target;
+  height: $touch-target;
+  margin: 0;
+}
+
+.hamburger {
+  display: block;
+  width: $hamburger-width;
+  height: $hamburger-height;
+  color: $color-primary;
+  background: linear-gradient(
+    to bottom,
+    currentColor 0 $hamburger-bar,
+    transparent $hamburger-bar ($hamburger-bar + $hamburger-gap),
+    currentColor ($hamburger-bar + $hamburger-gap) ($hamburger-bar * 2 + $hamburger-gap),
+    transparent ($hamburger-bar * 2 + $hamburger-gap) ($hamburger-bar * 2 + $hamburger-gap * 2),
+    currentColor ($hamburger-bar * 2 + $hamburger-gap * 2) $hamburger-height
+  );
+}

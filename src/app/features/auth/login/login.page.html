@@ -1,0 +1,46 @@
+<ion-content>
+  <app-menu-button class="login__menu" />
+
+  <main class="login">
+    <img
+      class="login__logo"
+      src="assets/images/bhd-logo.png"
+      srcset="assets/images/bhd-logo@2x.png 2x, assets/images/bhd-logo@3x.png 3x"
+      width="215"
+      height="66"
+      alt="Banco BHD León"
+    />
+
+    <form class="login__form" novalidate (submit)="signIn($event)">
+      <app-input
+        placeholder="Documento de identidad"
+        icon="assets/icons/user-input-gray.svg"
+        inputMode="numeric"
+        autocomplete="username"
+        [formField]="loginForm.userId"
+      />
+      <app-input
+        placeholder="Contraseña"
+        icon="assets/icons/key-input-gray.svg"
+        type="password"
+        autocomplete="current-password"
+        [formField]="loginForm.password"
+      />
+      <app-toggle class="login__remember" [formField]="loginForm.rememberUser">Recuerda mi usuario</app-toggle>
+      <app-button type="submit">INICIAR SESIÓN</app-button>
+    </form>
+  </main>
+
+  <ion-toast
+    class="login__toast"
+    position="top"
+    [isOpen]="errorMessage() !== null"
+    [message]="errorMessage() ?? ''"
+    [duration]="errorDurationMs"
+    (didDismiss)="errorMessage.set(null)"
+  />
+</ion-content>
+
+@if (submitting()) {
+  <app-loading-overlay />
+}

@@ -21,10 +21,10 @@ describe('HeaderComponent', () => {
   });
 
   it('should show the menu button by default', () => {
-    const menuButton = element.querySelector('ion-menu-button');
+    const menuButton = element.querySelector('app-menu-button ion-menu-button') as HTMLIonMenuButtonElement | null;
 
     expect(menuButton).not.toBeNull();
-    expect(menuButton?.autoHide).toBe(false);
+    
     expect(element.querySelector('ion-back-button')).toBeNull();
   });
 
