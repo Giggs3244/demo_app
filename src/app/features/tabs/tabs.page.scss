@@ -33,11 +33,3 @@ ion-label {
   letter-spacing: 0;
   text-transform: none;
 }
-
-.tab-icon {
-  display: block;
-  width: $icon-size;
-  height: $icon-size;
-  background: currentColor;
-  mask: var(--tab-icon) center / contain no-repeat;
-}

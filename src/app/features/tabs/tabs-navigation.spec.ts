@@ -7,18 +7,22 @@ import { NEVER } from 'rxjs';
 import { routes } from '../../app.routes';
 import { ProductsService } from '../../core/services/products.service';
 import { SessionStore } from '../../core/services/session.store';
+import { UserService } from '../../core/services/user.service';
 import { PlaceholderPage } from '../placeholder/placeholder.page';
 import { TabsPage } from './tabs.page';
 
 describe('Tabs navigation', () => {
   let harness: RouterTestingHarness;
+  const userService = { loadUser: vi.fn() };
 
   beforeEach(async () => {
+    userService.loadUser.mockReset().mockReturnValue(NEVER);
     TestBed.configureTestingModule({
       providers: [
         provideRouter(routes, withComponentInputBinding()),
         provideIonicAngular({ mode: 'md' }),
         { provide: ProductsService, useValue: { loadGroups: () => NEVER } },
+        { provide: UserService, useValue: userService },
       ],
     });
     harness = await RouterTestingHarness.create();
@@ -34,6 +38,13 @@ describe('Tabs navigation', () => {
   describe('with a session', () => {
     beforeEach(() => {
       TestBed.inject(SessionStore).start({ accessToken: 'access', refreshToken: 'refresh' });
+    });
+
+    it('should load the signed in user once for the side menu', async () => {
+      await harness.navigateByUrl('/tabs/products', TabsPage);
+      await harness.navigateByUrl('/tabs/offers', TabsPage);
+
+      expect(userService.loadUser).toHaveBeenCalledOnce();
     });
 
     it('should open the products tab by default', async () => {
@@ -70,6 +81,22 @@ describe('Tabs navigation', () => {
       expect(page?.querySelector('.placeholder__title')?.textContent).toBe(heading);
       expect(page?.querySelector('app-menu-button')).not.toBeNull();
     });
+  });
+
+  it.each([
+    ['contact', 'Contacto', 'Pantalla\nde contacto'],
+    ['branches', 'Sucursales', 'Pantalla\nde sucursales'],
+  ])('should open /%s without session, with a back button', async (path, title, heading) => {
+    await harness.navigateByUrl(`/${path}`, PlaceholderPage);
+    await harness.fixture.whenStable();
+
+    const page = harness.routeNativeElement;
+
+    expect(userService.loadUser).not.toHaveBeenCalled();
+    expect(page?.querySelector('ion-title')?.textContent?.trim()).toBe(title);
+    expect(page?.querySelector('.placeholder__title')?.textContent).toBe(heading);
+    expect(page?.querySelector('ion-back-button')).not.toBeNull();
+    expect(page?.querySelector('app-menu-button')).toBeNull();
   });
 
   it('should fall back to the menu button when a placeholder route gives no leading', async () => {

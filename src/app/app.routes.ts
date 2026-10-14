@@ -43,6 +43,14 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'contact',
+    ...placeholder({ title: 'Contacto', heading: 'Pantalla\nde contacto', leading: 'back' }),
+  },
+  {
+    path: 'branches',
+    ...placeholder({ title: 'Sucursales', heading: 'Pantalla\nde sucursales', leading: 'back' }),
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',

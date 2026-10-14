@@ -1,0 +1,118 @@
+@use 'sass:math';
+@use 'tokens' as *;
+@use 'typography' as type;
+
+$ionic-backdrop-opacity: 0.25;
+$overlay-opacity: 0.16;
+$header-content-height: $header-height - $accent-bar-height;
+$header-offset-top: 12px;
+$avatar-size: 42px;
+$user-optical-offset: 1px;
+$link-height: 48px;
+$nav-offset-top: 28px;
+$divider-offset: 28px;
+$divider-offset-after: 27px;
+$sign-out-margin: 16px;
+
+ion-menu {
+  --width: #{$side-menu-width};
+  --min-width: #{$side-menu-width};
+  --max-width: #{$side-menu-width};
+  --background: #{$color-surface};
+
+  &::part(container) {
+    box-shadow: none;
+  }
+
+  &::part(backdrop) {
+    background: rgba(0, 0, 0, math.div($overlay-opacity, $ionic-backdrop-opacity));
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-top: var(--ion-safe-area-top, 0px);
+  padding-bottom: calc(#{$space-md} + var(--ion-safe-area-bottom, 0px));
+  color: $color-text;
+
+  &__header {
+    display: flex;
+    flex: none;
+    align-items: flex-start;
+    gap: $space-sm;
+    box-sizing: content-box;
+    height: $header-content-height - $header-offset-top;
+    padding: $header-offset-top $screen-margin 0;
+    border-bottom: $accent-bar-height solid $color-primary;
+  }
+
+  &__avatar {
+    flex: none;
+    overflow: hidden;
+    width: $avatar-size;
+    height: $avatar-size;
+    border-radius: 50%;
+    background: $color-text;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__user {
+    @include type.text('md');
+    margin: 0;
+    padding-top: $user-optical-offset;
+    line-height: $avatar-size;
+    white-space: nowrap;
+  }
+
+  &__logo {
+    margin-inline: auto;
+  }
+
+  &__nav {
+    flex: 1;
+    overflow-y: auto;
+    padding-top: $nav-offset-top;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__link {
+    @include type.text('sm');
+
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    height: $link-height;
+    padding-inline: $screen-margin;
+    color: inherit;
+    text-decoration: none;
+
+    app-icon {
+      color: $color-primary;
+    }
+  }
+
+  &__divider {
+    height: $border-width;
+    margin: $divider-offset 0 $divider-offset-after;
+    border: 0;
+    background: $color-border;
+  }
+
+  &__sign-out {
+    flex: none;
+    margin-inline: $sign-out-margin;
+  }
+}

@@ -1,0 +1,58 @@
+<ion-menu type="overlay" [contentId]="contentId">
+  <div class="menu">
+    <header class="menu__header">
+      @if (isAuthenticated()) {
+        <span class="menu__avatar">
+          @if (user(); as currentUser) {
+            <img [src]="currentUser.photoUrl" alt="" />
+          }
+        </span>
+        <p class="menu__user">{{ user()?.fullName }}</p>
+      } @else {
+        <img
+          class="menu__logo"
+          src="assets/images/bhd-logo.png"
+          srcset="assets/images/bhd-logo@2x.png 2x, assets/images/bhd-logo@3x.png 3x"
+          width="149"
+          height="46"
+          alt="Banco BHD León"
+        />
+      }
+    </header>
+
+    <nav class="menu__nav" aria-label="Menú principal">
+      @if (isAuthenticated()) {
+        <ul class="menu__list">
+          @for (link of mainLinks; track link.url) {
+            <li>
+              <ion-menu-toggle [autoHide]="false">
+                <a class="menu__link" [routerLink]="link.url" routerDirection="root">
+                  <app-icon [src]="link.icon" />
+                  {{ link.label }}
+                </a>
+              </ion-menu-toggle>
+            </li>
+          }
+        </ul>
+        <hr class="menu__divider" />
+      }
+
+      <ul class="menu__list">
+        @for (link of supportLinks; track link.url) {
+          <li>
+            <ion-menu-toggle [autoHide]="false">
+              <a class="menu__link" [routerLink]="link.url" routerDirection="forward">
+                <app-icon [src]="link.icon" />
+                {{ link.label }}
+              </a>
+            </ion-menu-toggle>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    @if (isAuthenticated()) {
+      <app-button class="menu__sign-out" variant="outline" (click)="signOut()">CERRAR SESIÓN</app-button>
+    }
+  </div>
+</ion-menu>
