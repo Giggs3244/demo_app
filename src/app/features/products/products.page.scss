@@ -30,6 +30,12 @@ $title-height: map.get(map.get($type-scale, 'md'), 'line-height');
     margin: 0;
   }
 
+  &__link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+
   &__skeleton {
     margin-top: $title-height + $space-sm;
   }

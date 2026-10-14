@@ -1,0 +1,10 @@
+<app-header title="Detalle de producto" leading="back" [backHref]="backHref" />
+
+<ion-content>
+  <main class="detail">
+    @if (product(); as selectedProduct) {
+      <app-product-card [product]="selectedProduct" />
+    }
+    <app-placeholder-content class="detail__placeholder" [title]="heading" [description]="description" />
+  </main>
+</ion-content>

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { authGuard } from './core/guards/auth.guard';
 import { guestGuard } from './core/guards/guest.guard';
+import { productExistsGuard } from './core/guards/product-exists.guard';
 import { PlaceholderPageData } from './features/placeholder/placeholder.page';
 
 const loadPlaceholderPage = () => import('./features/placeholder/placeholder.page').then((m) => m.PlaceholderPage);
@@ -41,6 +42,11 @@ export const routes: Routes = [
         pathMatch: 'full',
       },
     ],
+  },
+  {
+    path: 'product/:type/:digits',
+    canActivate: [authGuard, productExistsGuard],
+    loadComponent: () => import('./features/product-detail/product-detail.page').then((m) => m.ProductDetailPage),
   },
   {
     path: 'contact',

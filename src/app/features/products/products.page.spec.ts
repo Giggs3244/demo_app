@@ -8,6 +8,7 @@ import { MOCK_ACCOUNTS, MOCK_CREDIT_CARDS } from '../../core/mocks/mock-data';
 import { ProductGroup, ProductGroupStatus } from '../../core/models/product-group.model';
 import { Product, ProductType } from '../../core/models/product.model';
 import { ProductsService } from '../../core/services/products.service';
+import { SessionStore } from '../../core/services/session.store';
 import { ProductsPage } from './products.page';
 
 describe('ProductsPage', () => {
@@ -47,6 +48,7 @@ describe('ProductsPage', () => {
         { provide: ProductsService, useValue: { loadGroups: () => groups } },
       ],
     });
+    TestBed.inject(SessionStore).start({ accessToken: 'access', refreshToken: 'refresh' });
     fixture = TestBed.createComponent(ProductsPage);
     element = fixture.nativeElement;
     await fixture.whenStable();
@@ -84,6 +86,21 @@ describe('ProductsPage', () => {
       'Tarjeta de crédito 1 - 0001',
       'Tarjeta de crédito 2 - 0002',
     ]);
+  });
+
+  it('should link every card to its detail using only the last digits', async () => {
+    await emit(group('AC', 'loaded', accounts), group('TC', 'loaded', creditCards));
+
+    const links = [...element.querySelectorAll('.products__link')];
+
+    expect(links.map((link) => link.getAttribute('href'))).toEqual([
+      '/product/AC/0001',
+      '/product/AC/0002',
+      '/product/TC/0001',
+      '/product/TC/0002',
+    ]);
+    expect(links.every((link) => link.getAttribute('routerDirection') === 'forward')).toBe(true);
+    expect(links.every((link) => link.querySelector('app-product-card') !== null)).toBe(true);
   });
 
   it('should color each group title with its product accent', async () => {

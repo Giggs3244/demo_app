@@ -1,0 +1,11 @@
+@use 'tokens' as *;
+
+$placeholder-offset-top: 100px;
+
+.detail {
+  padding: $space-md ($screen-margin + $content-inset-end) $space-md $screen-margin;
+
+  &__placeholder {
+    margin-top: $placeholder-offset-top;
+  }
+}

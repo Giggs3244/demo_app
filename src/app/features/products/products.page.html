@@ -7,7 +7,9 @@
         <section class="products__group products__group--{{ presentation[group.type].accent }}">
           <h2 class="products__title">{{ presentation[group.type].groupTitle }} ({{ group.products.length }})</h2>
           @for (product of group.products; track product.number) {
-            <app-product-card [product]="product" />
+            <a class="products__link" [routerLink]="detailLink(product)" routerDirection="forward">
+              <app-product-card [product]="product" />
+            </a>
           }
         </section>
       } @else if (group.type === firstLoadingType()) {
