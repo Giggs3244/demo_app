@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { authGuard } from './core/guards/auth.guard';
 import { guestGuard } from './core/guards/guest.guard';
+import { onboardingGuard } from './core/guards/onboarding.guard';
 import { productExistsGuard } from './core/guards/product-exists.guard';
 import { PlaceholderPageData } from './features/placeholder/placeholder.page';
 
@@ -11,8 +12,13 @@ const placeholder = (data: PlaceholderPageData) => ({ loadComponent: loadPlaceho
 
 export const routes: Routes = [
   {
-    path: 'login',
+    path: 'onboarding',
     canActivate: [guestGuard],
+    loadComponent: () => import('./features/onboarding/onboarding.page').then((m) => m.OnboardingPage),
+  },
+  {
+    path: 'login',
+    canActivate: [guestGuard, onboardingGuard],
     loadComponent: () => import('./features/auth/login/login.page').then((m) => m.LoginPage),
   },
   {

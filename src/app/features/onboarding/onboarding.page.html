@@ -1,0 +1,29 @@
+<ion-content [scrollY]="false">
+  <main class="onboarding">
+    <div #track class="onboarding__track" (scroll)="syncActiveSlide()" (click)="continue()">
+      @for (slide of slides; track slide.image; let index = $index) {
+        <section class="slide" [attr.aria-hidden]="index !== activeIndex()">
+          <h2 class="slide__title">{{ slide.title }}</h2>
+          <img
+            class="slide__image"
+            [src]="slide.image"
+            [attr.width]="slide.imageWidth"
+            [attr.height]="slide.imageHeight"
+            [style.top.px]="slide.imageTop"
+            alt=""
+          />
+        </section>
+      }
+    </div>
+
+    <ol class="onboarding__dots" aria-hidden="true">
+      @for (slide of slides; track slide.image; let index = $index) {
+        <li class="onboarding__dot" [class.onboarding__dot--active]="index === activeIndex()"></li>
+      }
+    </ol>
+
+    <footer class="onboarding__footer">
+      <button class="onboarding__continue" type="button" (click)="continue()">CONTINUAR</button>
+    </footer>
+  </main>
+</ion-content>

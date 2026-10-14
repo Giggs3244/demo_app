@@ -2,12 +2,15 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { provideIonicAngular } from '@ionic/angular';
-import { NEVER } from 'rxjs';
+import { NEVER, throwError } from 'rxjs';
 
 import { routes } from '../../app.routes';
 import { ProductsService } from '../../core/services/products.service';
 import { SessionStore } from '../../core/services/session.store';
+import { StorageService } from '../../core/services/storage.service';
+import { UserPreferencesService } from '../../core/services/user-preferences.service';
 import { UserService } from '../../core/services/user.service';
+import { InMemoryStorageService } from '../../core/testing/in-memory-storage.service';
 import { PlaceholderPage } from '../placeholder/placeholder.page';
 import { TabsPage } from './tabs.page';
 
@@ -23,8 +26,10 @@ describe('Tabs navigation', () => {
         provideIonicAngular({ mode: 'md' }),
         { provide: ProductsService, useValue: { loadGroups: () => NEVER } },
         { provide: UserService, useValue: userService },
+        { provide: StorageService, useClass: InMemoryStorageService },
       ],
     });
+    await TestBed.inject(UserPreferencesService).markOnboardingAsSeen();
     harness = await RouterTestingHarness.create();
   });
 
@@ -45,6 +50,14 @@ describe('Tabs navigation', () => {
       await harness.navigateByUrl('/tabs/offers', TabsPage);
 
       expect(userService.loadUser).toHaveBeenCalledOnce();
+    });
+
+    it('should keep working when the user cannot be loaded', async () => {
+      userService.loadUser.mockReturnValue(throwError(() => new Error('offline')));
+
+      await harness.navigateByUrl('/tabs/products', TabsPage);
+
+      expect(harness.routeNativeElement?.querySelector('app-products')).not.toBeNull();
     });
 
     it('should open the products tab by default', async () => {

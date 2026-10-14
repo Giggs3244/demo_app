@@ -11,7 +11,10 @@ import { ProductGroup } from '../../core/models/product-group.model';
 import { ProductsService } from '../../core/services/products.service';
 import { ProductsStore } from '../../core/services/products.store';
 import { SessionStore } from '../../core/services/session.store';
+import { StorageService } from '../../core/services/storage.service';
+import { UserPreferencesService } from '../../core/services/user-preferences.service';
 import { UserService } from '../../core/services/user.service';
+import { InMemoryStorageService } from '../../core/testing/in-memory-storage.service';
 import { ProductDetailPage } from './product-detail.page';
 
 describe('Product detail navigation', () => {
@@ -36,8 +39,10 @@ describe('Product detail navigation', () => {
         provideIonicAngular({ mode: 'md' }),
         { provide: ProductsService, useValue: { loadGroups: () => of(groups) } },
         { provide: UserService, useValue: { loadUser: () => NEVER } },
+        { provide: StorageService, useClass: InMemoryStorageService },
       ],
     });
+    await TestBed.inject(UserPreferencesService).markOnboardingAsSeen();
     harness = await RouterTestingHarness.create();
   });
 
