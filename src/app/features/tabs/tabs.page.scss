@@ -1,0 +1,43 @@
+@use 'sass:map';
+@use 'tokens' as *;
+@use 'typography' as type;
+
+$bar-inner-height: $tab-bar-height - $accent-bar-height;
+$icon-size: 30px;
+$icon-offset-top: 11px;
+$label-gap: 6px;
+$label-height: map.get(map.get($type-scale, 'xs'), 'line-height');
+$label-offset-bottom: $bar-inner-height - ($icon-offset-top * 2) - $icon-size - $label-gap - $label-height;
+
+ion-tab-bar {
+  --background: #{$color-surface};
+  --border: #{$accent-bar-height} solid #{$color-primary};
+  --color: #{$color-text};
+  --color-selected: #{$color-primary};
+
+  height: $bar-inner-height;
+}
+
+ion-tab-button {
+  --padding-start: 0;
+  --padding-end: 0;
+  --ripple-color: #{$color-primary};
+
+  max-width: none;
+}
+
+ion-label {
+  @include type.text('xs');
+
+  margin: $label-gap 0 $label-offset-bottom;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.tab-icon {
+  display: block;
+  width: $icon-size;
+  height: $icon-size;
+  background: currentColor;
+  mask: var(--tab-icon) center / contain no-repeat;
+}

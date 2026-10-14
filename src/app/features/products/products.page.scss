@@ -1,0 +1,36 @@
+@use 'sass:map';
+@use 'tokens' as *;
+@use 'typography' as type;
+
+$content-offset-top: 25px;
+$content-offset-bottom: 53px;
+$group-gap: 33px;
+$title-height: map.get(map.get($type-scale, 'md'), 'line-height');
+
+.products {
+  display: flex;
+  flex-direction: column;
+  gap: $group-gap;
+  padding: $content-offset-top ($screen-margin + $content-inset-end) $content-offset-bottom $screen-margin;
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: $space-sm;
+
+    @each $accent in ('primary', 'secondary') {
+      &--#{$accent} .products__title {
+        color: map.get($colors, $accent);
+      }
+    }
+  }
+
+  &__title {
+    @include type.text('md', $font-weight-bold);
+    margin: 0;
+  }
+
+  &__skeleton {
+    margin-top: $title-height + $space-sm;
+  }
+}

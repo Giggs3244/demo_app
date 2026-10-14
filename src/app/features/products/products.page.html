@@ -1,0 +1,18 @@
+<app-header title="Mis productos" leading="menu" />
+
+<ion-content>
+  <main class="products" aria-live="polite">
+    @for (group of groups(); track group.type) {
+      @if (group.status === 'loaded' && group.products.length > 0) {
+        <section class="products__group products__group--{{ presentation[group.type].accent }}">
+          <h2 class="products__title">{{ presentation[group.type].groupTitle }} ({{ group.products.length }})</h2>
+          @for (product of group.products; track product.number) {
+            <app-product-card [product]="product" />
+          }
+        </section>
+      } @else if (group.type === firstLoadingType()) {
+        <app-product-card-skeleton class="products__skeleton" />
+      }
+    }
+  </main>
+</ion-content>

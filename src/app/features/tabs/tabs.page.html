@@ -1,0 +1,10 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    @for (section of sections; track section.path) {
+      <ion-tab-button [tab]="section.path">
+        <span class="tab-icon" [style.--tab-icon]="'url(' + section.icon + ')'" aria-hidden="true"></span>
+        <ion-label>{{ section.label }}</ion-label>
+      </ion-tab-button>
+    }
+  </ion-tab-bar>
+</ion-tabs>
