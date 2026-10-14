@@ -142,7 +142,10 @@ describe('LoginPage', () => {
       signInResult.complete();
       await settle();
 
-      expect(navigation.navigateRoot).toHaveBeenCalledWith(APP_ROUTES.products);
+      expect(navigation.navigateRoot).toHaveBeenCalledWith(APP_ROUTES.products, {
+        animated: true,
+        animationDirection: 'forward',
+      });
       expect(isLoading()).toBe(false);
       expect(toast().isOpen).toBe(false);
     });

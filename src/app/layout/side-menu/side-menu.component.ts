@@ -33,6 +33,6 @@ export class SideMenuComponent {
   protected async signOut(): Promise<void> {
     await this.menu().close();
     this.auth.signOut();
-    await this.navigation.navigateRoot(APP_ROUTES.login);
+    await this.navigation.navigateRoot(APP_ROUTES.login, { animated: true, animationDirection: 'back' });
   }
 }

@@ -3,8 +3,25 @@
 @use '@ionic/angular/css/structure.css';
 @use '@ionic/angular/css/typography.css';
 @use '@ionic/angular/css/display.css';
+@use 'tokens' as *;
 @use 'typography' as type;
 
 body {
   @include type.text('md');
+}
+
+ion-tabs .ion-page {
+  animation: tab-dissolve $transition-duration linear;
+}
+
+@keyframes tab-dissolve {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ion-tabs .ion-page {
+    animation: none;
+  }
 }

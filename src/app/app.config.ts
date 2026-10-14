@@ -14,13 +14,14 @@ import { routes } from './app.routes';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { mockApiInterceptor } from './core/interceptors/mock-api.interceptor';
+import { slidePageTransition } from './shared/animations/slide-page-transition';
 
 const httpInterceptors = [authInterceptor, errorInterceptor, ...(environment.useMocks ? [mockApiInterceptor] : [])];
 
 export const appConfig: ApplicationConfig = {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    provideIonicAngular({ mode: 'md' }),
+    provideIonicAngular({ mode: 'md', navAnimation: slidePageTransition }),
     provideRouter(routes, withPreloading(PreloadAllModules), withComponentInputBinding()),
     provideHttpClient(withInterceptors(httpInterceptors)),
   ],

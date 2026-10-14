@@ -32,8 +32,8 @@ describe('SideMenuComponent', () => {
 
   beforeEach(async () => {
     calls.length = 0;
-    navigation.navigateRoot.mockReset().mockImplementation(async (url: string) => {
-      calls.push(`navigate:${url}:${session.isAuthenticated()}`);
+    navigation.navigateRoot.mockReset().mockImplementation(async (url: string, options: { animationDirection: string }) => {
+      calls.push(`navigate:${url}:${options.animationDirection}:${session.isAuthenticated()}`);
       return true;
     });
 
@@ -127,7 +127,7 @@ describe('SideMenuComponent', () => {
       element.querySelector<HTMLElement>('.menu__sign-out')?.click();
       await fixture.whenStable();
 
-      expect(calls).toEqual(['close:true', `navigate:${APP_ROUTES.login}:false`]);
+      expect(calls).toEqual(['close:true', `navigate:${APP_ROUTES.login}:back:false`]);
       expect(session.user()).toBeNull();
       expect(element.querySelector('.menu__logo')).not.toBeNull();
     });

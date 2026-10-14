@@ -81,7 +81,7 @@ export class LoginPage implements ViewWillEnter {
     try {
       await firstValueFrom(this.auth.signIn({ userId, password }));
       await (rememberUser ? this.preferences.rememberUserId(userId) : this.preferences.forgetUserId());
-      await this.navigation.navigateRoot(APP_ROUTES.products);
+      await this.navigation.navigateRoot(APP_ROUTES.products, { animated: true, animationDirection: 'forward' });
     } catch (error) {
       this.errorMessage.set(this.messageFor(error));
     } finally {
